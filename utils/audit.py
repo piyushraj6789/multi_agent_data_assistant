@@ -69,7 +69,7 @@ def log_query(question: str, user_role: str, result: dict) -> None:
             with conn.cursor() as cursor:
                 cursor.execute(
                     f"INSERT INTO {AUDIT_TABLE} VALUES "
-                    "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     [
                         ts,
                         question,
@@ -84,6 +84,8 @@ def log_query(question: str, user_role: str, result: dict) -> None:
                         tu.get("total_input",  0),
                         tu.get("total_output", 0),
                         json.dumps(tu.get("calls", [])),
+                        None,
+                        None,
                     ],
                 )
         finally:
